@@ -36,6 +36,4 @@ out/                       renders and stills (not in git)
 4. Only then into the pipeline.
 
 ## Scan
-Measure reference videos with `scan/run.sh <folder> [skip-ids]`. Videos, measurements and sheets
-live on Expansion (`/Volumes/Expansion/snelstack/snel-studio/references/<name>/`), never in git.
-Not a skill yet; see TODO.md.
+To measure reference videos: use the scan skill (`.claude/skills/scan/SKILL.md`).

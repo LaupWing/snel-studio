@@ -4,11 +4,20 @@
 - [x] Download top 20 Ricks Clips shorts (Expansion)
 - [x] Scan: measure + contact sheets + summary (20 videos)
 - [x] Scan our own 5 shots, compare
-- [ ] Write topic agent briefs (`scan/agents/*.md`: colour, ink, light, characters, camera, depth)
+- [x] Topic agent briefs (`.claude/skills/scan/topics/`)
 - [ ] Run the agents (after post-office is done, shared quota)
 - [ ] Merge into style guide `references/toon-2d.md`
-- [ ] Make the scan a skill (once agents worked)
+- [x] Scan is a skill (`.claude/skills/scan/`); test it with the first agent run
 - [ ] Remotion lab: one test scene, 4 stills
 - [ ] Build toon-2d template until it matches
 - [ ] Run one existing script through the template, next to the old version
 - [ ] Code-explainer template
+
+## Ideas (after the base works)
+- Sets: a reel has 1-4 sets (places); shots inside a set flow on (camera travels), between sets a
+  transition (fly through a door/window, short crossfade on the noun, whip). The shotlist says per row which set.
+- Locked vs free: light, colour, ink, blur locked (quality); camera moves a fixed set, free choice;
+  sets, props, story free.
+- One signature shot per reel: the agent may try something new there.
+- Innovation goes through `lab/`: idea → test in lab → Loc approves → new building block in the template.
+- Template versions: test v2 on a few reels, compare views with v1.
