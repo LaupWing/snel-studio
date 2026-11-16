@@ -34,3 +34,8 @@ out/                       renders and stills (not in git)
 2. Side by side with the reference, measure, fix. Max 3-4 rounds, until Loc says "this is it".
 3. Run one existing script through the template, next to the old version.
 4. Only then into the pipeline.
+
+## Scan
+Measure reference videos with `scan/run.sh <folder> [skip-ids]`. Videos, measurements and sheets
+live on Expansion (`/Volumes/Expansion/snelstack/snel-studio/references/<name>/`), never in git.
+Not a skill yet; see TODO.md.
