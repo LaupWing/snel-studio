@@ -9,6 +9,7 @@
 - [x] Style guide `references/toon-2d.md`
 - [x] Scan is a skill (`.claude/skills/scan/`); test it with the first agent run
 - [x] Remotion lab: first test scene (`lab/2026-11-16-street/`)
+- [ ] Port the proven Open Design pieces (`references/harvest-open-design.md`) into the template
 - [ ] Build toon-2d template until it matches
 - [ ] Catalog: one Remotion composition that renders every building block (houses, props, characters) in a grid; re-render when the kit changes
 - [ ] Run one existing script through the template, next to the old version
