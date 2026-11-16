@@ -5,11 +5,12 @@
 - [x] Scan: measure + contact sheets + summary (20 videos)
 - [x] Scan our own 5 shots, compare
 - [x] Topic agent briefs (`.claude/skills/scan/topics/`)
-- [ ] Run the agents (after post-office is done, shared quota)
-- [ ] Merge into style guide `references/toon-2d.md`
+- [x] Run the agents (7 topics, reports on Expansion)
+- [x] Style guide `references/toon-2d.md`
 - [x] Scan is a skill (`.claude/skills/scan/`); test it with the first agent run
-- [ ] Remotion lab: one test scene, 4 stills
+- [x] Remotion lab: first test scene (`lab/2026-11-16-street/`)
 - [ ] Build toon-2d template until it matches
+- [ ] Catalog: one Remotion composition that renders every building block (houses, props, characters) in a grid; re-render when the kit changes
 - [ ] Run one existing script through the template, next to the old version
 - [ ] Code-explainer template
 

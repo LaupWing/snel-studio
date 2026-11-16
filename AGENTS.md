@@ -8,7 +8,7 @@ then used by every reel so the look stays consistent. Read README.md for the why
 templates/toon-2d/         first template: flat 2D characters in a painted 3D toon world
 templates/code-explainer/  later: code pages in 3D, Loc explains
 references/                measurements of reference videos (numbers, never opinions)
-lab/                       test scenes while building a template
+lab/                       one folder per test: lab/<date>-<name>/ with the scene + NOTES.md
 out/                       renders and stills (not in git)
 ```
 
@@ -37,3 +37,8 @@ out/                       renders and stills (not in git)
 
 ## Scan
 To measure reference videos: use the scan skill (`.claude/skills/scan/SKILL.md`).
+
+## Lab
+Every test gets its own folder `lab/<YYYY-MM-DD>-<name>/`: the scene file(s) plus `NOTES.md` with
+goal, what was tried, where the stills are (`out/lab/<same name>/`), the result, and the verdict
+(keep → move into the template, or drop and why). Never overwrite an old test; start a new folder.
