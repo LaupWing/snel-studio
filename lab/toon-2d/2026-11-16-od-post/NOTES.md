@@ -11,7 +11,7 @@ New tool: `lab/compare.sh <out dir> <stills>` makes vs-ricks.png in one go.
 
 **Stills:** `out/lab/toon-2d/2026-11-16-od-post/op_0.png`, `op_89.png`, `vs-ricks.png`.
 
-**Result:** colour much closer (warm, saturated, no washed-out sky problem); real shadows; the high angle
+**Result:** (corrected by measuring in test 4: colour was NOT close: 84% orange, 0% white, sat 0.62) real shadows; real shadows; the high angle
 already reads more like Ricks; foreground barrel + plant blur nicely. Still off:
 - background houses not soft enough (focus too far back; set focus on the mascot, raise k).
 - mascot reads dark/grey from this angle (his hoodie is grey by design; may need a little more emissive).

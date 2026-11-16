@@ -9,4 +9,6 @@ IN=(); for f in "$@" $T/r1.png $T/r2.png $T/r3.png; do IN+=(-i "$f"); done
 N=$(( $# + 3 )); F=""; for i in $(seq 0 $((N-1))); do F+="[$i]scale=-1:960[v$i];"; done
 for i in $(seq 0 $((N-1))); do F+="[v$i]"; done; F+="hstack=$N,scale=$((N*360)):-1"
 ffmpeg -v error -y "${IN[@]}" -filter_complex "$F" "$OUT/vs-ricks.png"; rm -rf $T
+# Numbers under the image (green = inside the Ricks range, red = outside). Never judge a look by eye alone.
+~/.local/share/snel-whisper/bin/python "$(dirname "$0")/measure.py" "$OUT/vs-ricks.png" $(( N - 3 ))
 echo "$OUT/vs-ricks.png"; open "$OUT/vs-ricks.png"

@@ -6,11 +6,12 @@ import { useFrame, useThree } from '@react-three/fiber';
 // depth-of-field gather (golden angle, 48 taps) + grade: cool blue-violet shadows, saturation +14%,
 // soft highlight rolloff, vignette, sRGB encode, light grain, lifted black point (never pure black).
 // Renders on every frame Remotion advances (useFrame priority 1 takes over the default render).
-export type PostOpts = { focus: number; k?: number; max?: number; expo?: number; grain?: number };
+// sat = saturation mix (1 = untouched), knee = where highlight rolloff starts (1 = whites stay white).
+export type PostOpts = { focus: number; k?: number; max?: number; expo?: number; grain?: number; sat?: number; knee?: number };
 
 const QV = 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }';
 
-export const Post = ({ focus, k = 18, max = 14, expo = 1.0, grain = 0.016 }: PostOpts) => {
+export const Post = ({ focus, k = 18, max = 14, expo = 1.0, grain = 0.016, sat = 1.14, knee = 0.72 }: PostOpts) => {
   const { gl, scene, camera, size } = useThree();
   const W = Math.round(size.width * gl.getPixelRatio()), H = Math.round(size.height * gl.getPixelRatio());
   const p = useMemo(() => {
@@ -27,9 +28,9 @@ export const Post = ({ focus, k = 18, max = 14, expo = 1.0, grain = 0.016 }: Pos
     });
     const post = new THREE.ShaderMaterial({
       uniforms: { tC: { value: rtC.texture }, uPx: { value: new THREE.Vector2(1 / W, 1 / H) }, uFocus: { value: focus }, uK: { value: k },
-        uMax: { value: max * W / 1080 }, uTime: { value: 0 }, uExpo: { value: expo }, uGrain: { value: grain } },
+        uMax: { value: max * W / 1080 }, uTime: { value: 0 }, uExpo: { value: expo }, uGrain: { value: grain }, uSat: { value: sat }, uKnee: { value: knee } },
       vertexShader: QV,
-      fragmentShader: `uniform sampler2D tC; uniform vec2 uPx; uniform float uFocus, uK, uMax, uTime, uExpo, uGrain; varying vec2 vUv;
+      fragmentShader: `uniform sampler2D tC; uniform vec2 uPx; uniform float uFocus, uK, uMax, uTime, uExpo, uGrain, uSat, uKnee; varying vec2 vUv;
         float coc(float z){ return min(uMax, uK * abs(1.0 / uFocus - 1.0 / z)); }
         void main(){
           vec4 c0 = texture2D(tC, vUv); float cz = c0.a; float cc = coc(cz);
@@ -46,10 +47,10 @@ export const Post = ({ focus, k = 18, max = 14, expo = 1.0, grain = 0.016 }: Pos
           float l = dot(col, vec3(0.2126, 0.7152, 0.0722));
           float sh = 1.0 - smoothstep(0.02, 0.30, l);
           col = mix(col, col * vec3(0.82, 0.86, 1.24) + vec3(0.012, 0.008, 0.036), sh * 0.75);
-          col = mix(vec3(l), col, 1.14);
+          col = mix(vec3(l), col, uSat);
           col = max(col, 0.0);
-          vec3 over = max(col - 0.72, 0.0);
-          col = min(col, 0.72) + over / (1.0 + over / 0.3);
+          vec3 over = max(col - uKnee, 0.0);
+          col = min(col, uKnee) + over / (1.0 + over / 0.3);
           vec2 q = vUv - 0.5; col *= 1.0 - dot(q * vec2(1.1, 0.75), q * vec2(1.1, 0.75)) * 0.5;
           col = mix(col * 12.92, 1.055 * pow(col, vec3(1.0 / 2.4)) - 0.055, step(vec3(0.0031308), col));
           float n = fract(sin(dot(gl_FragCoord.xy + uTime * 61.0, vec2(12.9898, 78.233))) * 43758.5453) - 0.5;
@@ -62,6 +63,7 @@ export const Post = ({ focus, k = 18, max = 14, expo = 1.0, grain = 0.016 }: Pos
     const qs = new THREE.Scene(); qs.add(quad);
     return { rtScene, rtC, coc, post, quad, qs, qc: new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1) };
   }, [gl, camera, W, H]);
+  useEffect(() => { p.post.uniforms.uSat.value = sat; p.post.uniforms.uKnee.value = knee; }, [p, sat, knee]);
   useEffect(() => { p.post.uniforms.uFocus.value = focus; }, [p, focus]);
   useEffect(() => () => { p.rtScene.dispose(); p.rtC.dispose(); }, [p]);
   useFrame((state) => {

@@ -43,3 +43,4 @@ Every test gets its own folder `lab/<template>/<YYYY-MM-DD>-<name>/` (or `lab/sh
 goal, what was tried, where the stills are (`out/lab/<template>/<same name>/`), the result, and the verdict
 (keep → move into the template, or drop and why). Never overwrite an old test; start a new folder, and add one line to `lab/<template>/README.md`.
 Every test ends with ONE image for Loc: our stills next to 2-3 reference frames (`vs-ricks.png`), never separate files.
+Make it with `lab/compare.sh <out dir> <stills>`: it adds a numbers table (luma, white, sat, orange, blue; red = outside the Ricks range). Never call a look close by eye: report the table.
