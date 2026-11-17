@@ -14,7 +14,7 @@ import { LOOK } from './look';
 // useMemes: load BEFORE the ToonScene mounts (return null until ready): the canvas does not redraw on late state.
 // Meme: a real wojak head (PNG from Expansion via public/memes, never in git) on a body drawn in its own style.
 type V3 = [number, number, number];
-export const ARMS = MASCOT_ARMS as Record<'down' | 'wave' | 'point' | 'up' | 'type' | 'cover', any>;
+export const ARMS = MASCOT_ARMS as Record<'down' | 'wave' | 'point' | 'up' | 'type' | 'cover' | 'head', any>;
 export const MEMES = ['wojak', 'npc-wojak', 'chad', 'doomer', 'soyjak', 'crying-wojak'] as const;
 export type Meme = typeof MEMES[number];
 
