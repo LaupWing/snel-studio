@@ -3,3 +3,7 @@ references/frames/
 references/videos/
 node_modules/
 .DS_Store
+public/memes
+public/logos
+src/videos/*
+!src/videos/README.md

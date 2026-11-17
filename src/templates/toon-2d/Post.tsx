@@ -7,11 +7,12 @@ import { useFrame, useThree } from '@react-three/fiber';
 // soft highlight rolloff, vignette, sRGB encode, light grain, lifted black point (never pure black).
 // Renders on every frame Remotion advances (useFrame priority 1 takes over the default render).
 // sat = saturation mix (1 = untouched), knee = where highlight rolloff starts (1 = whites stay white).
-export type PostOpts = { focus: number; k?: number; max?: number; expo?: number; grain?: number; sat?: number; knee?: number };
+// focusOn: world point (the main character) the focus follows every frame, whatever the camera does. Wins over focus.
+export type PostOpts = { focusOn?: [number, number, number]; focus: number; k?: number; max?: number; expo?: number; grain?: number; sat?: number; knee?: number };
 
 const QV = 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }';
 
-export const Post = ({ focus, k = 18, max = 14, expo = 1.0, grain = 0.016, sat = 1.14, knee = 0.72 }: PostOpts) => {
+export const Post = ({ focusOn, focus, k = 18, max = 14, expo = 1.0, grain = 0.016, sat = 1.14, knee = 0.72 }: PostOpts) => {
   const { gl, scene, camera, size } = useThree();
   const W = Math.round(size.width * gl.getPixelRatio()), H = Math.round(size.height * gl.getPixelRatio());
   const p = useMemo(() => {
@@ -69,6 +70,10 @@ export const Post = ({ focus, k = 18, max = 14, expo = 1.0, grain = 0.016, sat =
   useFrame((state) => {
     gl.toneMapping = THREE.NoToneMapping;
     p.post.uniforms.uTime.value = state.clock.elapsedTime;
+    if (focusOn) {   // view-space depth of the subject, same measure the coc pass uses
+      camera.updateMatrixWorld();
+      p.post.uniforms.uFocus.value = Math.max(0.3, -new THREE.Vector3(...focusOn).applyMatrix4(camera.matrixWorldInverse).z);
+    }
     gl.setRenderTarget(p.rtScene); gl.render(scene, camera);
     p.quad.material = p.coc; gl.setRenderTarget(p.rtC); gl.render(p.qs, p.qc);
     p.quad.material = p.post; gl.setRenderTarget(null); gl.render(p.qs, p.qc);

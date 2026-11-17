@@ -3,8 +3,8 @@ import * as THREE from 'three';
 import { ThreeCanvas } from '@remotion/three';
 import { useCurrentFrame, useVideoConfig, interpolate, Easing } from 'remotion';
 import { useThree } from '@react-three/fiber';
-import { LOOK } from '../../../src/templates/toon-2d/look';
-import { Sky, Lights, Inked, Toon } from '../../../src/templates/toon-2d/World';
+import { LOOK } from './look';
+import { Sky, Lights, Inked, Toon } from './World';
 import { MascotCard } from '../../../src/templates/toon-2d/Card';
 
 // Lab test: a small street, front-on, mascot in the middle, slow push-in.

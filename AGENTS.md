@@ -5,8 +5,12 @@ then used by every reel so the look stays consistent. Read README.md for the why
 
 ## Structure
 ```
-templates/toon-2d/         first template: flat 2D characters in a painted 3D toon world
-templates/code-explainer/  later: code pages in 3D, Loc explains
+src/templates/toon-2d/     first template: flat 2D characters in a painted 3D toon world
+  stage.tsx                stage kit (flight case, wedge, speaker, lectern, truss + spots, StageSet hall)
+  people/<name>.js         real people traced from a photo (photo itself on Expansion, never in git)
+src/videos/<slug>          symlink to <writing repo>/snelstack/video_scripts/shorts/<slug>/scenes (gitignored);
+                           the video's own scene code lives next to its script, see src/videos/README.md
+src/templates/code-explainer/  later: code pages in 3D, Loc explains
 references/                measurements of reference videos (numbers, never opinions)
 lab/<template>/             one folder per test (+ README.md overview); lab/shared/ for tests that apply to all
 out/                       renders and stills (not in git)
@@ -19,6 +23,9 @@ out/                       renders and stills (not in git)
 - Stills first, then render. Same code makes both. Loc approves the stills at a glance before
   anything is rendered.
 - A tweak ("camera slower") is a knob, not a new prompt.
+- Something a second video could use (a prop, a set, a person) goes into the template, never into the video.
+- Props the Ricks way (Loc 2026-11-17): a real object of 4-6 parts (body, insets, trim, hardware, a label),
+  rounded edges, painted 2-tone face with ink seams and +-6% noise, an AO pool under it. Never a bare box.
 
 ## Rules
 - Measure, don't eyeball. Compare against a reference in numbers.

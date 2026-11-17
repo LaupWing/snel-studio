@@ -9,9 +9,9 @@
 - [x] Style guide `references/toon-2d.md`
 - [x] Scan is a skill (`.claude/skills/scan/`); test it with the first agent run
 - [x] Remotion lab: first test scene (`lab/2026-11-16-street/`)
-- [ ] Port the proven Open Design pieces (`references/harvest-open-design.md`) into the template
-- [ ] Build toon-2d template until it matches
-- [ ] Catalog: one Remotion composition that renders every building block (houses, props, characters) in a grid; re-render when the kit changes
+- [x] Port the proven Open Design pieces (`references/harvest-open-design.md`) into the template
+- [x] Build toon-2d template until it matches (v1 2026-11-17: ToonDemo)
+- [x] Catalog (ToonCatalog, out/catalog/toon-2d.png): one Remotion composition that renders every building block (houses, props, characters) in a grid; re-render when the kit changes
 - [ ] Run one existing script through the template, next to the old version
 - [ ] Code-explainer template
 
@@ -23,3 +23,5 @@
 - One signature shot per reel: the agent may try something new there.
 - Innovation goes through `lab/`: idea → test in lab → Loc approves → new building block in the template.
 - Template versions: test v2 on a few reels, compare views with v1.
+
+- [ ] After jensen-huang b-roll is done: port the thick arms into production `writing/snelstack/video_scripts/assets/character-2d/mascot2d.js` (+ regenerate mascot2d-sheet.png), so Open Design shots match (Loc 2026-11-17).

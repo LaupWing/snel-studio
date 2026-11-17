@@ -70,3 +70,13 @@ wood/inside #8f542c #b78656 #4e2c2d #6d4f51; day #f1f2f3 #70aa79 #6db3ee.
 - New place every 3-5 s, reached by camera travel through one world (~20 f) or a 5 f crossfade; hard cuts 0-1 per video.
 - Every shot has at least one ambient loop (water, flags, background props).
 - Voice: 3.6 words/s, longest silence 0.45 s, first word at 0.00 s.
+
+## Ink vs plain 3D (scan 2026-11-17, Expansion reports/ink-vs-3d.md)
+Ink: characters, faces, what a character holds or wears, and the story props: often SEVERAL per frame, not one
+(Loc 2026-11-17). Per reel/set it is a knob: `ink` none / props / all (~4 of 17 videos ink the whole set). Plain lit 3D, no ink: the set, ground,
+machines, metal, far background (soft specular, real texture, blurred far). ~100% of frames have an un-inked set.
+
+## Characters are 3D (scan 2026-11-17, Expansion reports/characters-3d.md)
+Sphere/capsule bodies, smooth toon ramp + flat shadow band, spec streak + rim, receive scene shadows, ink hull ~2-3% of
+head width; only the face is 2D (decal on the head, swapped per expression). Animated on every frame, tube limbs.
+Ours stays a flat card on purpose: Loc 2026-11-17 compared a 3D build (lab mascot-3d) and picked the card.

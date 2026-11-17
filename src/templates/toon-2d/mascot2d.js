@@ -15,6 +15,7 @@ const MASCOT_ARMS = {
   point: { L: [[290, 760], [300, 900]], R: [[820, 600], [960, 560]] },
   up:    { L: [[200, 500], [170, 330]], R: [[800, 500], [830, 330]] },
   type:  { L: [[300, 760], [400, 860]], R: [[700, 760], [600, 860]] },
+  cover: { L: [[300, 720], [450, 420]], R: [[700, 720], [550, 420]] },   // hands over the mouth (shock)
 };
 const INKC = '#241726';
 function inked(g, fns, fill, lw) {
@@ -122,11 +123,20 @@ function drawHead2D(g, o) {
     g.restore();
   }
 }
+// Arms = thick hoodie sleeves (~ leg width) + white mittens (Loc's choice: thick arms, 'geen dunne armpjes', as in the approved Open Design shots, e.g.
+// heartbleed shot 04). Was a thin 21 px ink stick until 2026-11-17.
 function drawArms2D(g, arms) {
-  g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = INKC; g.fillStyle = INKC;
-  for (const [s, [el, hd]] of [[[325, 592], arms.L], [[675, 592], arms.R]]) {
-    g.lineWidth = 21; g.beginPath(); g.moveTo(s[0], s[1]); g.quadraticCurveTo(el[0], el[1], hd[0], hd[1]); g.stroke();
-    g.beginPath(); g.arc(hd[0], hd[1], 22, 0, 6.283); g.fill();
+  g.lineCap = 'round'; g.lineJoin = 'round';
+  const SH = [[325, 592], [675, 592]];
+  for (const [s, [el, hd]] of [[SH[0], arms.L], [SH[1], arms.R]]) {
+    g.strokeStyle = INKC; g.lineWidth = 92; g.beginPath(); g.moveTo(s[0], s[1]); g.quadraticCurveTo(el[0], el[1], hd[0], hd[1]); g.stroke();
+    g.strokeStyle = '#bdb9c9'; g.lineWidth = 74; g.beginPath(); g.moveTo(s[0], s[1]); g.quadraticCurveTo(el[0], el[1], hd[0], hd[1]); g.stroke();
+  }
+  for (const [s, [, hd]] of [[SH[0], arms.L], [SH[1], arms.R]]) {     // round white mittens + thumb nub
+    const side = s[0] < 500 ? -1 : 1;
+    g.fillStyle = '#ffffff'; g.strokeStyle = INKC; g.lineWidth = 9;
+    g.beginPath(); g.arc(hd[0] - side * 34, hd[1] - 8, 18, 0, 6.283); g.stroke(); g.fill();
+    g.beginPath(); g.arc(hd[0], hd[1], 42, 0, 6.283); g.stroke(); g.fill();
   }
 }
 function drawMascot2D(g, o = {}) {
