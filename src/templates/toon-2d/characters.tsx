@@ -14,7 +14,7 @@ import { LOOK } from './look';
 // useMemes: load BEFORE the ToonScene mounts (return null until ready): the canvas does not redraw on late state.
 // Meme: a real wojak head (PNG from Expansion via public/memes, never in git) on a body drawn in its own style.
 type V3 = [number, number, number];
-export const ARMS = MASCOT_ARMS as Record<'down' | 'wave' | 'point' | 'up' | 'type' | 'cover' | 'head', any>;
+export const ARMS = MASCOT_ARMS as Record<'down' | 'wave' | 'point' | 'up' | 'type' | 'cover' | 'head' | 'cuff', any>;
 export const MEMES = ['wojak', 'npc-wojak', 'chad', 'doomer', 'soyjak', 'crying-wojak'] as const;
 export type Meme = typeof MEMES[number];
 
@@ -35,7 +35,7 @@ export const Mascot = ({ pos, arms = 'down', height = 1.7 }: { pos: V3; arms?: k
   <MascotCard position={pos} height={height} arms={arms} self={LOOK.character.self} />;
 
 export const Side = ({ pos, outfit = 'suit', face = 'smug', arms = 'down', tie = '#d8443c', mark, height = 1.75 }:
-  { pos: V3; outfit?: 'suit' | 'hoodie'; face?: 'smug' | 'doomer' | 'shock'; arms?: keyof typeof ARMS; tie?: string; mark?: string; height?: number }) =>
+  { pos: V3; outfit?: 'suit' | 'hoodie' | 'police'; face?: 'smug' | 'doomer' | 'shock'; arms?: keyof typeof ARMS; tie?: string; mark?: string; height?: number }) =>
   <MascotCard position={pos} height={height} self={LOOK.character.self} drawKey={`side-${outfit}-${face}-${arms}-${tie}-${mark}`}
     draw={(g) => drawSide(g, { outfit, face, tie, arms: ARMS[arms], mark })} />;
 

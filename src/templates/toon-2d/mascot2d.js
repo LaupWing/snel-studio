@@ -16,6 +16,7 @@ const MASCOT_ARMS = {
   up:    { L: [[200, 500], [170, 330]], R: [[800, 500], [830, 330]] },
   type:  { L: [[300, 760], [400, 860]], R: [[700, 760], [600, 860]] },
   cover: { L: [[300, 720], [450, 420]], R: [[700, 720], [550, 420]] },   // hands over the mouth (shock)
+  cuff:  { L: [[260, 700], [420, 760]], R: [[740, 700], [580, 760]] },   // both hands in front of the chest (cuffing)
   head:  { L: [[220, 520], [330, 210]], R: [[780, 520], [670, 210]] },   // hands on the head (disbelief)
 };
 const INKC = '#241726';

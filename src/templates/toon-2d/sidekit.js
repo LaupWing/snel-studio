@@ -168,18 +168,40 @@ function drop(g, x, y, a) {
 }
 // o.meme: a loaded HTMLImageElement (wojak etc.) replaces the drawn head.
 // o: { outfit: 'suit' | 'hoodie', tie, face: 'smug' | 'doomer' | 'shock', arms: {L,R}, step, sweat, mark, markSize }
+function policeTorso(g) {
+  const T = TORSO(g);
+  inkFill(g, T, '#1f2638', 9);
+  clipShade(g, T, () => {
+    g.fillStyle = '#d8f23a'; g.fillRect(290, 600, 420, 360);                                    // hi-vis vest
+    g.fillStyle = '#bcd62a'; g.beginPath(); g.moveTo(622, 600); g.quadraticCurveTo(650, 760, 630, 960); g.lineTo(720, 960); g.lineTo(720, 600); g.fill();
+    g.fillStyle = '#e8e8f0'; g.fillRect(290, 760, 420, 26); g.fillRect(290, 850, 420, 26);     // reflective bands
+    g.fillStyle = '#1f2638'; g.fillRect(470, 600, 60, 360);                                     // open front
+  });
+  g.strokeStyle = INKC; g.lineWidth = 6; g.strokeRect(290, 600, 420, 0.1);
+  inkFill(g, () => g.roundRect(380, 640, 90, 44, 8), '#1f2638', 4);                             // badge plate
+  g.fillStyle = '#ffffff'; g.font = '900 30px Arial'; g.textAlign = 'center'; g.fillText('POLICE', 425, 674);
+  g.beginPath(); g.moveTo(440, 542); g.lineTo(560, 542); g.lineTo(500, 600); g.closePath(); g.fillStyle = '#f6f3fb'; g.fill(); g.strokeStyle = INKC; g.lineWidth = 6; g.stroke();
+}
+function policeHat(g) {                                                                         // peaked cap with a black/white check band
+  inkFill(g, () => { g.moveTo(262, 196); g.bezierCurveTo(262, 60, 738, 60, 738, 196); g.closePath(); }, '#1f2638', 10);
+  g.save(); g.beginPath(); g.rect(262, 150, 476, 52); g.clip();
+  for (let i = 0; i < 24; i++) for (let r = 0; r < 2; r++) { g.fillStyle = (i + r) % 2 ? '#ffffff' : '#1f2638'; g.fillRect(262 + i * 20, 150 + r * 26, 20, 26); }
+  g.restore(); g.strokeStyle = INKC; g.lineWidth = 7; g.strokeRect(262, 150, 476, 52);
+  inkFill(g, () => g.ellipse(500, 214, 250, 26, 0, 0, 6.283), '#141a28', 7);                    // peak
+  inkFill(g, () => g.arc(500, 118, 24, 0, 6.283), '#e8c84a', 5);                                 // badge
+}
 function drawSide(g, o) {
   g.save(); g.translate(0, 200); g.lineCap = 'round'; g.lineJoin = 'round';
   suitLegs(g, o.step || 0);
-  if (o.outfit === 'suit') suitTorso(g, o.tie || '#d8443c'); else hoodieTorso(g);
+  if (o.outfit === 'suit') suitTorso(g, o.tie || '#d8443c'); else if (o.outfit === 'police') policeTorso(g); else hoodieTorso(g);
   if (o.meme) {   // real meme head (wojak PNG from Expansion, never in git): 520 px wide, neck tucked into the collar
     const w = 520, h = w * o.meme.height / o.meme.width; g.drawImage(o.meme, 500 - w / 2, 610 - h, w, h);
   } else {
     headBase(g);
-    if (o.outfit === 'suit') slickHair(g); else beanie(g);
+    if (o.outfit === 'suit') slickHair(g); else if (o.outfit === 'police') { slickHair(g); policeHat(g); } else beanie(g);
     if (o.face === 'smug') faceSmug(g); else if (o.face === 'shock') faceShock(g); else faceDoomer(g);
   }
-  sideArms(g, o.arms, o.outfit === 'suit' ? '#33428e' : '#4b4766');
+  sideArms(g, o.arms, o.outfit === 'suit' ? '#33428e' : o.outfit === 'police' ? '#1f2638' : '#4b4766');
   if (o.sweat) drop(g, 760, 230, o.sweat);
   if (o.mark) bigMark(g, o.mark, o.markSize || 300);
   g.restore();
